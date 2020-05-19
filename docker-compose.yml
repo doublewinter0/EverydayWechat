@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  nginx:
+  wechat:
     build: .
     image: everyday_wechat
     container_name: wechat
     networks:
       wechat:
-        - ipv4_address: 10.10.0.10
+        ipv4_address: 10.10.0.10
     environment:
       TZ : 'Asia/Shanghai'
     restart: always
