@@ -1,5 +1,5 @@
 # 说明该镜像以哪个镜像为基础
-FROM python:3.7-slim
+FROM python:3.8-slim
 
 RUN mkdir /app
 WORKDIR /app

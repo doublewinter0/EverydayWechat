@@ -13,6 +13,7 @@ https://github.com/MZCretin/RollToolsApi#指定日期的节假日及万年历信
 
 from datetime import datetime
 import requests
+from everyday_wechat.utils.common import ROLL_TOOLS_HEADERS
 
 __all__ = ['STFT', 'WEEK_DICT', 'get_rtcalendar']
 
@@ -38,7 +39,7 @@ def get_rtcalendar(date=''):
 
     print('获取 {} 的日历...'.format(date_))
     try:
-        resp = requests.get('https://www.mxnzp.com/api/holiday/single/{}'.format(date_))
+        resp = requests.get('https://www.mxnzp.com/api/holiday/single/{}'.format(date_), headers=ROLL_TOOLS_HEADERS)
         if resp.status_code == 200:
             # print(resp.text)
             content_dict = resp.json()

@@ -9,9 +9,10 @@ Introduction: 获取空气质量
 """
 
 import requests
+import json
 
 # token，申请地址：http://aqicn.org/data-platform/token/#/
-AQICN_TOKEN = '6382db85ef321ae81f316486de0b5b8aa6c84f62'
+AQICN_TOKEN = 'ba06296716d308e8cff6da4351c45dba0244d063'
 
 AIR_STATUS_DICT = {
     50: '优',
@@ -35,9 +36,11 @@ def get_air_quality(city):
     if not city or not city.strip():
         return
     print('获取 {} 的空气质量...'.format(city))
+    city_id = __get_city_id__(city[0:2])
+    if not city:
+        return None
     try:
-
-        url = 'http://api.waqi.info/feed/{city}/?token={token}'.format(city=city, token=AQICN_TOKEN)
+        url = f'http://api.waqi.info/feed/@{city_id}/?token={AQICN_TOKEN}'
         resp = requests.get(url)
         if resp.status_code == 200:
             # print(resp.text)
@@ -62,7 +65,21 @@ def get_air_quality(city):
     return None
 
 
+def __get_city_id__(city_keyword):
+    url = f'https://api.waqi.info/search/?token={AQICN_TOKEN}&keyword={city_keyword}'
+    try:
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            return json.loads(resp.content)["data"][0]["uid"]
+    except Exception as exp:
+        print(str(exp))
+        return None
+
+
 if __name__ == '__main__':
     city = '长沙'
     dd = get_air_quality(city)
     print(dd)
+
+    __get_city_id__("神木")
+

@@ -7,7 +7,7 @@ import hashlib
 import json
 
 __all__ = [
-    'FILEHELPER_MARK', 'FILEHELPER', 'SPIDER_HEADERS', 'WEEK_DICT',
+    'FILEHELPER_MARK', 'FILEHELPER', 'SPIDER_HEADERS', 'ROLL_TOOLS_HEADERS', 'WEEK_DICT',
     'BIRTHDAY_COMPILE', 'CONSTELLATION_NAME_LIST', 'CONSTELLATION_DATE_DICT',
     'is_json', 'md5_encode', 'get_constellation_name']
 
@@ -16,7 +16,12 @@ FILEHELPER = 'filehelper'
 
 SPIDER_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; '
-                  'WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+                  'WOW64; rv:60.0) Gecko/20100101 Firefox/60.0'
+}
+
+ROLL_TOOLS_HEADERS = {
+    "app_id": "mgjqqkjqfgnrailk",
+    "app_secret": "dTVyL3llRE5tYWVlZ1pFdUtpalJVZz09"
 }
 
 WEEK_DICT = {
