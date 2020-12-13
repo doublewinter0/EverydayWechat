@@ -1,18 +1,27 @@
-# 说明该镜像以哪个镜像为基础
-FROM python:3.8-slim
+FROM python:alpine
 
-RUN mkdir /app
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
-
-RUN pip install -r requirements.txt
-COPY . /app
-
+ENV TZ Asia/Shanghai
 ENV MODE server
 
-# 构建者的基本信息
-MAINTAINER DoubleThunder <sfyc23@gmail.com>
+LABEL maintainer="erdong.ren@gamil.com"
+LABEL version="1.1.0"
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
-ENTRYPOINT ["python", "run.py"]
+RUN apk update && apk add --virtual build-dependencies \
+    build-base \
+    libxml2-dev \
+    libxslt-dev
+
+WORKDIR /app
+
+COPY requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN apk del build-dependencies \
+    && rm -rf /var/cache/apk/*
+
+COPY . .
+
+CMD ["python", "run.py"]

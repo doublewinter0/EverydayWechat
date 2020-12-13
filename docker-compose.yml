@@ -3,7 +3,7 @@ version: "3.8"
 services:
   wechat:
     build: .
-    image: everyday_wechat
+    image: erdong/wechat:latest
     container_name: wechat
     networks:
       wechat:
